@@ -1,0 +1,61 @@
+package Demo;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Test;
+
+public class Beno_Android_App {
+
+	
+	WebDriver driver;
+ 
+	@Test
+	public void setup() throws InterruptedException, MalformedURLException  {
+		System.out.println("Application get open");
+		DesiredCapabilities cap = new DesiredCapabilities();
+		
+		// Device Configuration
+		
+		cap.setCapability("deviceName","Pixel 2 API 28");
+		cap.setCapability("udid","emulator-5554");
+		cap.setCapability("platformName","Android");
+		cap.setCapability("platformVersion","9.0.0");
+		Thread.sleep(2000);
+		// App Information
+		cap.setCapability("appPackage","com.benoholding.beno");
+		// App Launch Or App Activity
+		cap.setCapability("appActivity","com.benoholding.beno.presentation.ui.MainActivity");
+		 driver=new RemoteWebDriver(new URL("http://0.0.0.0:4723/wd/hub"),cap);
+	   	 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	   	 System.out.println(" Application lunched sucessfully");
+	   	 Thread.sleep(2000);
+//	   	 driver.findElement(By.id("com.benoholding.beno:id/button_pickup_location")).click();index=2,text=Pick-up location,class=android.widget.Button
+//	   	 Thread.sleep(1000);
+//	   	 driver.findElement(By.id("android:id/search_src_text")).sendKeys("dubai");index=0,text=Search Locations,class=android.widget.EditText
+//	   	 Thread.sleep(2000);
+//	   	 driver.findElement(By.id("com.benoholding.beno:id/layout_location_item")).click();class=android.view.ViewGroup,index=0,com.benoholding.beno:id/layout_location_item
+//	   	 Thread.sleep(3000);index=12,class=android.widget.Button,text=SEARCH, resource-id=com.benoholding.beno:id/button_search
+	   	 
+	   	 driver.findElement(By.xpath("//android.widget.Button[@index='2']")).click();
+	   	System.out.println("Click on PickUp location");
+	   	 Thread.sleep(1000);
+		 driver.findElement(By.xpath("//android.widget.EditText[@index='0']")).sendKeys("dubai");
+		 Thread.sleep(2000);
+		 System.out.println("Enter value in Search text");
+		 driver.findElement(By.xpath("//android.widget.TextView[@index='0']")).click();//text=Dubai International Airport,resource-id=com.benoholding.beno:id/text_location_name
+		 Thread.sleep(2000);
+		 System.out.println("Select value from listBox");
+		 Thread.sleep(3000);
+		 driver.findElement(By.xpath("//android.widget.Button[@index='12']")).click();
+		 Thread.sleep(10000);
+
+	   	
+	}
+
+}
